@@ -358,6 +358,40 @@
                      (relation-asserted david-tennant)
                      (response Duh)
                      (valid-answers Duh No))))
+;;;____________________________________________________________________________________
+(defrule determine-boys-who-play ""
+
+   (logical (david-tennant No))
+
+   =>
+
+   (assert (UI-state (display BoysWhoPlayQuestion)
+                     (relation-asserted boys-who-play)
+                     (response No)
+                     (valid-answers No Yes))))
+
+(defrule determine-twilight ""
+
+   (logical (boys-who-play Yes))
+
+   =>
+
+   (assert (UI-state (display TwilightQuestion)
+                     (relation-asserted twilight)
+                     (response No)
+                     (valid-answers No DC Yes))))
+
+(defrule determine-scripted-or-spontaneous ""
+
+   (logical (boys-who-play No))
+
+   =>
+
+   (assert (UI-state (display ScriptedOrSpontaneousQuestion)
+                     (relation-asserted scripted-or-spontaneous)
+                     (response Spontaneous)
+                     (valid-answers Spontaneous Scripted))))
+
 
 
 ;;;****************
@@ -591,6 +625,48 @@
 	
 	(assert (UI-state (display LittleradgeResult)
 						(state final))))
+
+;;;____________________________________________________________________________________
+(defrule Getoutofmyflowchart ""
+	(logical (twilight No))
+	
+	=>
+	
+	(assert (UI-state (display GetoutofmyflowchartResult)
+						(state final))))
+
+(defrule Charlieissocoollike ""
+	(logical (twilight DC))
+	
+	=>
+	
+	(assert (UI-state (display CharlieissocoollikeResult)
+						(state final))))
+
+(defrule Neverimon ""
+	(logical (twilight Yes))
+	
+	=>
+	
+	(assert (UI-state (display NeverimonResult)
+						(state final))))
+
+(defrule Missxrojas ""
+	(logical (scripted-or-spontaneous Spontaneous))
+	
+	=>
+	
+	(assert (UI-state (display MissxrojasResult)
+						(state final))))
+
+(defrule Electricfaeriedust ""
+	(logical (scripted-or-spontaneous Scripted))
+	
+	=>
+	
+	(assert (UI-state (display ElectricfaeriedustResult)
+						(state final))))
+
 
 
 ;;;NO RESPONCES
