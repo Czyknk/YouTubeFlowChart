@@ -393,6 +393,367 @@
                      (valid-answers Spontaneous Scripted))))
 
 
+(defrule determine-sing-or-never ""
+
+   (logical (kind-of-accent American))
+
+   =>
+
+   (assert (UI-state (display SingsOrNotQuestion)
+                     (relation-asserted sing-or-never)
+                     (response SometimesSings)
+                     (valid-answers SometimesSings NeverSings))))
+
+(defrule determine-daily-videos ""
+
+   (logical (sing-or-never NeverSings))
+
+   =>
+
+   (assert (UI-state (display DailyVideosQuestion)
+                     (relation-asserted daily-videos)
+                     (response Yes)
+                     (valid-answers Yes No))))
+
+(defrule Breakingnyc ""
+	(logical (daily-videos Yes))
+	
+	=>
+	
+	(assert (UI-state (display BreakingnycResult)
+						(state final))))
+
+(defrule determine-need-avice ""
+
+   (logical (daily-videos No))
+
+   =>
+
+   (assert (UI-state (display AviceQuestion)
+                     (relation-asserted need-avice)
+                     (response YP)
+                     (valid-answers YP No))))
+
+(defrule Peron75 ""
+	(logical (need-avice YP))
+	
+	=>
+	
+	(assert (UI-state (display Peron75Result)
+						(state final))))
+
+(defrule determine-different-versions ""
+
+   (logical (need-avice No))
+
+   =>
+
+   (assert (UI-state (display DifferentVersionsQuestion)
+                     (relation-asserted different-versions)
+                     (response Yes)
+                     (valid-answers Yes NoThatsWeird))))
+
+(defrule Elmify ""
+	(logical (different-versions Yes))
+	
+	=>
+	
+	(assert (UI-state (display ElmifyResult)
+						(state final))))
+
+(defrule determine-subscribers ""
+
+   (logical (different-versions NoThatsWeird))
+
+   =>
+
+   (assert (UI-state (display SubscribersQuestion)
+                     (relation-asserted subscribers)
+                     (response More)
+                     (valid-answers More Less))))
+
+(defrule determine-watch-someone ""
+
+   (logical (subscribers More))
+
+   =>
+
+   (assert (UI-state (display WatchSomeoneQuestion)
+                     (relation-asserted watch-someone)
+                     (response TalkWorldIssues)
+                     (valid-answers TalkWorldIssues MakeUp Rant))))
+
+(defrule Pogobat ""
+	(logical (watch-someone TalkWorldIssues))
+	
+	=>
+	
+	(assert (UI-state (display PogobatResult)
+						(state final))))
+
+(defrule Meekakitty ""
+	(logical (watch-someone Rant))
+	
+	=>
+	
+	(assert (UI-state (display MeekakittyResult)
+						(state final))))
+
+(defrule Michellephan ""
+	(logical (watch-someone MakeUp))
+	
+	=>
+	
+	(assert (UI-state (display MichellephanResult)
+						(state final))))
+
+(defrule determine-typography ""
+
+   (logical (subscribers Less))
+
+   =>
+
+   (assert (UI-state (display TypographyQuestion)
+                     (relation-asserted typography)
+                     (response Agreed)
+                     (valid-answers Agreed Typography))))
+
+(defrule Xperpetualmotion ""
+	(logical (typography Agreed))
+	
+	=>
+	
+	(assert (UI-state (display XperpetualmotionResult)
+						(state final))))
+
+(defrule determine-only-fiveawesomes ""
+
+   (logical (typography Typography))
+
+   =>
+
+   (assert (UI-state (display OnlyFiveawesomes)
+                     (relation-asserted only-fiveawesomes)
+                     (response Yes)
+                     (valid-answers Yes WhoAreThey))))
+
+(defrule Thatzak ""
+	(logical (only-fiveawesomes WhoAreThey))
+	
+	=>
+	
+	(assert (UI-state (display ThatzakResult)
+						(state final))))
+
+(defrule determine-girls-or-boys-only-fiveawesomes ""
+
+   (logical (only-fiveawesomes Yes))
+
+   =>
+
+   (assert (UI-state (display GirlsOrBoysQuestion)
+                     (relation-asserted girls-or-boys-only-fiveawesomes)
+                     (response Girls)
+                     (valid-answers Girls Boys))))
+
+(defrule Alanvlogs ""
+	(logical (determine-girls-or-boys-only-fiveawesomes Boys))
+	
+	=>
+	
+	(assert (UI-state (display AlanvlogsResult)
+						(state final))))
+
+(defrule Owlssayhoot ""
+	(logical (determine-girls-or-boys-only-fiveawesomes Girls))
+	
+	=>
+	
+	(assert (UI-state (display OwlssayhootResult)
+						(state final))))
+
+
+
+
+(defrule determine-rapping ""
+
+   (logical (sing-or-never SometimesSings))
+
+   =>
+
+   (assert (UI-state (display RappingQuestion)
+                     (relation-asserted rapping)
+                     (response Yes)
+                     (valid-answers Yes No))))
+
+(defrule Hayleyghoover ""
+	(logical (rapping Yes))
+	
+	=>
+	
+	(assert (UI-state (display HayleyghooverResult)
+						(state final))))
+
+(defrule determine-breakfast ""
+
+   (logical (rapping No))
+
+   =>
+
+   (assert (UI-state (display BreakfastQuestion)
+                     (relation-asserted breakfast)
+                     (response OC)
+                     (valid-answers OC UmN))))
+
+(defrule Wheezywaiter ""
+	(logical (breakfast OC))
+	
+	=>
+	
+	(assert (UI-state (display WheezywaiterResult)
+						(state final))))
+
+(defrule determine-charts-and-graphs ""
+
+   (logical (breakfast UmN))
+
+   =>
+
+   (assert (UI-state (display ChartsAndGraphsQuestion)
+                     (relation-asserted charts-and-graphs)
+                     (response YES)
+                     (valid-answers YES NR))))
+
+(defrule Mickeleh ""
+	(logical (charts-and-graphs Yes))
+	
+	=>
+	
+	(assert (UI-state (display MickelehResult)
+						(state final))))
+
+(defrule determine-caps ""
+
+   (logical (charts-and-graphs NR))
+
+   =>
+
+   (assert (UI-state (display CapsQuestion)
+                     (relation-asserted caps)
+                     (response Yes)
+                     (valid-answers Yes NotMyStyle))))
+
+(defrule determine-girls-or-boys-rule ""
+
+   (logical (caps Yes))
+
+   =>
+
+   (assert (UI-state (display GirlsOrBoysRuleQuestion)
+                     (relation-asserted girls-or-boys-rule)
+                     (response GIRLS)
+                     (valid-answers GIRLS BOYS))))
+
+(defrule Italktosnakes ""
+	(logical (girls-or-boys-rule GIRLS))
+	
+	=>
+	
+	(assert (UI-state (display ItalktosnakesResult)
+						(state final))))
+
+(defrule Lukeconard ""
+	(logical (girls-or-boys-rule BOYS))
+	
+	=>
+	
+	(assert (UI-state (display LukeconardResult)
+						(state final))))
+
+(defrule determine-fiveawesomegirl ""
+
+   (logical (caps NotMyStyle))
+
+   =>
+
+   (assert (UI-state (display FiveawesomegirlQuestion)
+                     (relation-asserted fiveawesomegirl)
+                     (response Yes)
+                     (valid-answers Yes No))))
+
+(defrule Devilishlypure ""
+	(logical (fiveawesomegirl Yes))
+	
+	=>
+	
+	(assert (UI-state (display DevilishlypureResult)
+						(state final))))
+
+(defrule determine-happy-people ""
+
+   (logical (fiveawesomegirl No))
+
+   =>
+
+   (assert (UI-state (display HappyPeopleQuestion)
+                     (relation-asserted happy-people)
+                     (response Angry)
+                     (valid-answers Angry HappyD))))
+
+(defrule Hopeonatenspeed ""
+	(logical (happy-people HappyD))
+	
+	=>
+	
+	(assert (UI-state (display HopeonatenspeedResult)
+						(state final))))
+
+(defrule determine-vlogger ""
+
+   (logical (happy-people Angry))
+
+   =>
+
+   (assert (UI-state (display VloggerQuestion)
+                     (relation-asserted vlogger)
+                     (response TalkFast)
+                     (valid-answers TalkFast TalkSlow))))
+
+(defrule Fizzylimon ""
+	(logical (vlogger TalkFast))
+	
+	=>
+	
+	(assert (UI-state (display FizzylimonResult)
+						(state final))))
+
+(defrule determine-vlogger-review ""
+
+   (logical (vlogger TalkSlow))
+
+   =>
+
+   (assert (UI-state (display VloggerReviewQuestion)
+                     (relation-asserted vlogger-review)
+                     (response Technology)
+                     (valid-answers Technology Books))))
+
+(defrule Ijustine ""
+	(logical (vlogger-review Technology))
+	
+	=>
+	
+	(assert (UI-state (display IjustineResult)
+						(state final))))
+
+(defrule Bandgeek8408 ""
+	(logical (vlogger-review Books))
+	
+	=>
+	
+	(assert (UI-state (display Bandgeek8408Result)
+						(state final))))
+
 
 ;;;****************
 ;;;* YT CHANNEL RULES *
